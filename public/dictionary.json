@@ -1,0 +1,21 @@
+{
+    "words": [
+        {
+            "id": 1,
+            "word": "พส.",
+            "pos": "noun",
+            "meaning": "เพื่อนสาว พี่สาว และ พระสงฆ์"
+        },
+        {
+            "id": 2,
+            "word": "จึ้ง",
+            "pos": "adjective",
+            "meaning": "ดี, เลิศ"
+        }
+    ],
+    "pos_th": {
+        "noun": "น.",
+        "adjective": "ว.",
+        "verb": "ก."
+    }
+}

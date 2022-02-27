@@ -1,16 +1,22 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Charm";
+  src: local("Charm"),
+    url("../public/fonts/Charm-Regular.ttf") format("truetype");
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@font-face {
+  font-family: "Kanit";
+  src: local("Kanit"),
+    url("../public/fonts/Kanit-Regular.ttf") format("truetype");
 }
 
-* {
-  box-sizing: border-box;
+@font-face {
+  font-family: "Kanit";
+  font-weight: 900;
+  src: local("Kanit"),
+    url("../public/fonts/Kanit-Bold.ttf") format("truetype");
 }
