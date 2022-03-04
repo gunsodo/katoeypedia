@@ -52,11 +52,11 @@ jobs:
           #  the output of the action can be found in ${{ steps.worksheet.outputs.results }}
           results: ${{ steps.retrieve_data.outputs.results }}
         run: |
-          echo ${ results } > ./out
+          echo ${results} > ./out
           python ./.github/workflows/autoupdate.py < ./out
         
       - name: Commit changes
         env:
           dict: ${{ steps.compile.outputs.results }}
         run:
-          echo ${ dict }
+          echo ${dict}
