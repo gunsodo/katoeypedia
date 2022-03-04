@@ -58,6 +58,8 @@ jobs:
         
       - name: Commit changes
         run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
           git add ./public/dictionary.json
           git commit ./public/dictionary.json -m "autoupdate dictionary.json"
           git fetch origin main
