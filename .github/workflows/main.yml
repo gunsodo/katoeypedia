@@ -57,7 +57,7 @@ jobs:
           rm ./out
         
       - name: Commit changes
-        run:
+        run: |
           git add ./public/dictionary.json
           git commit ./public/dictionary.json -m "autoupdate dictionary.json"
           git fetch origin main
