@@ -21,12 +21,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - name: gsheet.action
+      - name: Retrieve data from Google Sheets
         uses: jroehl/gsheet.action@v1.1.0
         env:
           GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
           GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
-        id: 'worksheet'
+        id: 'retrieve_data'
         with:
           spreadsheetId: ${{ secrets.SPREADSHEET_ID }}
           commands: | # list of commands, specified as a valid JSON string
@@ -41,9 +41,16 @@ jobs:
               }
             ]
 
-      - name: run test
+      - name: Compile dictionary
+        id: compile
         env:
           #  the output of the action can be found in ${{ steps.worksheet.outputs.results }}
-          RESULTS: ${{ steps.worksheet.outputs.results }}
+          results: ${{ steps.retrieve_data.outputs.results }}
         run:
-          echo "${RESULTS}"
+          python ./.github/workflows/autoupdate.py < ${ results }
+        
+      - name: Commit changes
+        env:
+          dict: ${{ steps.compile.outputs.results }}
+        run:
+          echo ${ dict }
