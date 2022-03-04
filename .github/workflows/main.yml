@@ -1,10 +1,12 @@
-name: dict automation
+name: Dictionary Automation
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ dev ]
+    branches: [ main ]
+  schedule:
+    - cron: 0 0 * * *
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -62,5 +64,4 @@ jobs:
           git config user.email "<>"
           git add ./public/dictionary.json
           git commit ./public/dictionary.json -m "autoupdate dictionary.json"
-          git fetch origin main
           git push main
