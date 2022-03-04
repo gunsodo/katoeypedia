@@ -22,6 +22,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+          registry-url: https://registry.npmjs.org/
       
       - name: Retrieve data from Google Sheets
         uses: jroehl/gsheet.action@v1.1.0
@@ -54,16 +58,26 @@ jobs:
           #  the output of the action can be found in ${{ steps.worksheet.outputs.results }}
           results: ${{ steps.retrieve_data.outputs.results }}
         run: |
-          echo "${results}" > ./out
-          python ./.github/workflows/autoupdate.py < ./out > ./public/dictionary.json
+          python ./.github/workflows/autoupdate.py < ./out 
           rm ./out
         
       - name: Commit changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           git add ./public/dictionary.json
           git commit ./public/dictionary.json -m "autoupdate dictionary.json"
           git push
+      
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        run: |
+          prodRun=""
+          if [[ ${GITHUB_REF} == "refs/heads/main" ]]; then
+            prodRun="--prod"
+          fi
+          npx vercel --token ${VERCEL_TOKEN} $prodRun
+

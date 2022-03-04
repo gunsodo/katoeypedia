@@ -24,4 +24,5 @@ for w in ws:
     if w[1]:
         data['words'].append(dump(w))
 
-print(data)
+with open('./public/dictionary.json', 'w') as out:
+    json.dump(data, out)
