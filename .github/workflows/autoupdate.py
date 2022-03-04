@@ -6,7 +6,8 @@ import json
 def dump(l):
     return dict(zip(['id', 'word', 'pos', 'meaning'], l))
 
-r = json.loads(input())
+i = input()
+r = json.loads(i)
 ws = r.results[0].result.rawData
 
 data = dict()

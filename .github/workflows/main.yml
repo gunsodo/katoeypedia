@@ -41,13 +41,19 @@ jobs:
               }
             ]
 
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
       - name: Compile dictionary
         id: compile
         env:
           #  the output of the action can be found in ${{ steps.worksheet.outputs.results }}
           results: ${{ steps.retrieve_data.outputs.results }}
-        run:
-          python ./.github/workflows/autoupdate.py < ${ results }
+        run: |
+          echo ${ results } > ./out
+          python ./.github/workflows/autoupdate.py < ./out
         
       - name: Commit changes
         env:
