@@ -19,6 +19,7 @@ data['pos_th'] = {
 data['words'] = []
 
 for w in ws:
-    data['words'].append(dump(w))
+    if w[1]:
+        data['words'].append(dump(w))
 
 print(data)

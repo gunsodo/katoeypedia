@@ -52,11 +52,13 @@ jobs:
           #  the output of the action can be found in ${{ steps.worksheet.outputs.results }}
           results: ${{ steps.retrieve_data.outputs.results }}
         run: |
-          echo ${results} > ./out
-          python ./.github/workflows/autoupdate.py < ./out
+          echo "${results}" > ./out
+          python ./.github/workflows/autoupdate.py < ./out > ./public/dictionary.json
+          rm ./out
         
       - name: Commit changes
-        env:
-          dict: ${{ steps.compile.outputs.results }}
         run:
-          echo ${dict}
+          git add ./public/dictionary.json
+          git commit -m "autoupdate dictionary.json"
+          git fetch origin main
+          git push main
