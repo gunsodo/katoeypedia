@@ -15,7 +15,9 @@ data = dict()
 data['pos_th'] = {
     "noun": "น.",
     "adjective": "ว.",
-    "verb": "ก."
+    "adverb": "ว.",
+    "verb": "ก.",
+    "phrase": "วลี"
 }
 data['timestamp'] = str(datetime.now())
 data['words'] = []
