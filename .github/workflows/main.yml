@@ -64,7 +64,6 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
-          git remote set-url --push origin https://gunsodo:$GITHUB_TOKEN@github.com/gunsodo/katoeypedia
           git add ./public/dictionary.json
           git commit ./public/dictionary.json -m "autoupdate dictionary.json"
-          git push main
+          git push
