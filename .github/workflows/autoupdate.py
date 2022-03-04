@@ -8,7 +8,7 @@ def dump(l):
 
 i = input()
 r = json.loads(i)
-ws = r.results[0].result.rawData
+ws = r['results'][0]['result']['rawData']
 
 data = dict()
 data['pos_th'] = {

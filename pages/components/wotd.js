@@ -3,7 +3,7 @@ export default function WOTD() {
     const words = dictionary.words;
     let today = new Date();
     today.setHours(0, 0, 0, 0);
-    const wotd = words[today.getTime() * 97 % words.length];
+    const wotd = words[(today.getTime() * 97) % words.length];
 
     return (
         <div className="text-center rounded-md w-full border-2 border-black p-6 divide-y-2 divide-black space-y-4">
