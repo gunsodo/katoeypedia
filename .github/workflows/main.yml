@@ -1,0 +1,49 @@
+name: dict automation
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ dev ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      - name: gsheet.action
+        uses: jroehl/gsheet.action@v1.1.0
+        env:
+          GSHEET_CLIENT_EMAIL: ${{ secrets.GSHEET_CLIENT_EMAIL }}
+          GSHEET_PRIVATE_KEY: ${{ secrets.GSHEET_PRIVATE_KEY }}
+        id: 'worksheet'
+        with:
+          spreadsheetId: ${{ secrets.SPREADSHEET_ID }}
+          commands: | # list of commands, specified as a valid JSON string
+            [
+              { 
+                "command": "getData", 
+                "args": 
+                  { 
+                    "hasHeaderRow": true,
+                    "worksheetTitle": "Dictionary"
+                  } 
+              }
+            ]
+
+      - name: run test
+        env:
+          #  the output of the action can be found in ${{ steps.worksheet.outputs.results }}
+          RESULTS: ${{ steps.worksheet.outputs.results }}
+        run:
+          echo "${RESULTS}"
