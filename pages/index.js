@@ -14,6 +14,7 @@ export default function Home() {
         <Head>
           <title>Katoeypedia</title>
           <link rel="icon" href="/favicon.ico" />
+          <meta property="og:title" content="Katoeypedia" />
         </Head>
 
         <main className="flex flex-col items-center justify-center w-full flex-1 text-center p-8">
